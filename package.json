@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/shlomofeit/Iron-Dome-Ops/issues"
   },
-  "homepage": "https://github.com/shlomofeit/Iron-Dome-Ops#readme"
+  "homepage": "https://github.com/shlomofeit/Iron-Dome-Ops#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.23.0"
+  }
 }
