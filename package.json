@@ -1,0 +1,22 @@
+{
+  "name": "iron-dome-ops",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "docker compose up -d && node --watch --env-file=.env src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shlomofeit/Iron-Dome-Ops.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shlomofeit/Iron-Dome-Ops/issues"
+  },
+  "homepage": "https://github.com/shlomofeit/Iron-Dome-Ops#readme"
+}
