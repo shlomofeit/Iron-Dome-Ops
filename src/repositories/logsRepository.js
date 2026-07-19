@@ -28,15 +28,17 @@ export async function updateLogsById(incidentId, obj) {
 }
 
 export async function createLogs(obj) {
-  const query = `INSERT INTO incidents (action, incident_id, operator_id, description) VALUES (?, ?, ?, ?)`;
-  const { code_name, threat_level, status, operator_id } = obj;
+  // const { code_name, threat_level, status, operator_id } = obj;
+  const keys = Object.keys(obj).join(", ");
+  const values = Object.values(obj)
+    .map((val) => {
+      "?";
+    })
+    .join(", ");
+
+  const query = `INSERT INTO incidents (${keys}) VALUES (${values})`;
   try {
-    const [rows] = await pool.execute(query, [
-      action,
-      incident_id,
-      operator_id,
-      description,
-    ]);
+    const [rows] = await pool.execute(query, Object.values(obj));
     return rows;
   } catch (error) {
     throw new Error(error);

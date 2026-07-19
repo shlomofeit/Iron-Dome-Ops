@@ -30,8 +30,8 @@ export async function createOperator(obj) {
   const query = `INSERT INTO operators (name, rank) VALUES (?, ?)`;
   const { name, rank } = obj;
   try {
-    const [rows] = await pool.execute(query, [name, rank]);
-    return rows;
+    const [result] = await pool.execute(query, [name, rank]);
+    return result.insertId;
   } catch (error) {
     throw new Error(error);
   }

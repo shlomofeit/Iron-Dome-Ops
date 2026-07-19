@@ -10,6 +10,16 @@ export async function getIncidentById(incidentId) {
   }
 }
 
+export async function getIncidantByStatus(status) {
+  try {
+    const query = `SELECT * FROM incidents WHERE status = (?)`;
+    const [rows] = await pool.execute(query, [status]);
+    return rows;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
 export async function updateIncidentById(incidentId, obj) {
   const keys = Object.keys(obj)
     .map((key) => `${key} = ?`)
