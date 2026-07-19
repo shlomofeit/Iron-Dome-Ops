@@ -19,10 +19,10 @@ CREATE TABLE IF NOT EXISTS incidents (
 
 CREATE TABLE IF NOT EXISTS logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    action VARCHAR(100),
+    action VARCHAR(100) NOT NULL,
     incident_id INT,
     operator_id INT,
-    description TEXT,
+    description TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (incident_id) REFERENCES incidents(id),
     FOREIGN KEY (operator_id) REFERENCES operators(id)
