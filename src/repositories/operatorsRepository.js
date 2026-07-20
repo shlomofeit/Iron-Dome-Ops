@@ -1,4 +1,4 @@
-import pool from "./database/db.js";
+import pool from "../database/db.js";
 
 export async function getOperatorById(operatorId) {
   try {
@@ -27,8 +27,8 @@ export async function updateOperatorById(operatorId, obj) {
 }
 
 export async function createOperator(obj) {
-  const query = `INSERT INTO operators (name, rank) VALUES (?, ?)`;
-  const { name, rank } = obj;
+  const query = `INSERT INTO operators (name, soldier_rank) VALUES (?, ?)`;
+  const { name, soldier_rank } = obj;
   try {
     const [result] = await pool.execute(query, [name, rank]);
     return result.insertId;
