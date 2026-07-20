@@ -1,6 +1,6 @@
 import express from "express";
 import z from "zod";
-import { createIncidentService } from "../services/incidents";
+import { createOparetorService } from "../services/operators.js";
 
 const operatorValidation = z.object({
   name: z.string(),

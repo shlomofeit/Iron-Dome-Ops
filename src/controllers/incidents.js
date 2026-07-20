@@ -53,12 +53,10 @@ export async function updateIncident(req, res, next) {
   if (["OPEN", "TRACKING", "INTERCEPTED", "CLOSED"].includes(status)) {
     const update = await updateIncidantService(incidentId, req.body);
     if (update) {
-      return res
-        .status(201)
-        .json({
-          success: true,
-          message: `incident status updated to ${status}`,
-        });
+      return res.status(201).json({
+        success: true,
+        message: `incident status updated to ${status}`,
+      });
     }
   } else {
     const err = new Error(`invalid status`);
@@ -72,4 +70,8 @@ export async function updateIncident(req, res, next) {
     return next(err);
   }
   throw new Error();
+}
+
+export async function getOpensIncident() {
+  const opensIncedent = await getOpensIncidant();
 }
