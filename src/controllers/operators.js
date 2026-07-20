@@ -13,10 +13,10 @@ export async function createOperator(req, res, next) {
   if (!valid.success) {
     const err = new Error(`Error: ${valid.error.flatten()}`);
     err.statusCode = 422;
-    next(err);
+    return next(err);
   }
 
-  const incident = await createIncidentService(req.body);
+  const incident = await createOparetorService(req.body);
   if (!incident) {
     throw new Error();
   }

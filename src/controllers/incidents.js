@@ -22,7 +22,7 @@ export async function createIncident(req, res, next) {
   if (!valid.success) {
     const err = new Error(`Error: ${valid.error.flatten()}`);
     err.statusCode = 422;
-    next(err);
+    return next(err);
   }
 
   const incident = await createIncidentService(req.body);
@@ -37,7 +37,7 @@ export async function createIncident(req, res, next) {
 }
 
 export async function updateIncident(req, res, next) {
-  const paramValid = paramValidation.safeParse(req.params.id);
+  const paramValid = paramValidation.safeParse({ id: req.params.id });
   if (!paramValid.success) {
     const err = new Error("Id must be a number");
     err.statusCode = 400;
@@ -64,7 +64,7 @@ export async function updateIncident(req, res, next) {
     return next(err);
   }
   const bodyKeys = Object.keys(req.body);
-  if (bodyKeys === 0 || bodyKeys[0].toLowerCase() !== "status") {
+  if (bodyKeys.length === 0 || bodyKeys[0].toLowerCase() !== "status") {
     const err = new Error(`Body can only have 'status' key.`);
     err.statusCode = 422;
     return next(err);
@@ -72,6 +72,7 @@ export async function updateIncident(req, res, next) {
   throw new Error();
 }
 
-export async function getOpensIncident() {
-  const opensIncedent = await getOpensIncidant();
+export async function getOpensIncident(req, res, next) {
+  const openIncidents = await getOpensIncidant();
+  return res.json(openIncidents);
 }
