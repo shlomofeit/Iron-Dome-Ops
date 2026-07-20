@@ -1,4 +1,4 @@
-import { createLogs } from "./repositories/logsRepository.js";
+import { createLogs } from "../repositories/logsRepository.js";
 import {
   createIncident,
   getIncidentById,
@@ -7,14 +7,22 @@ import {
 } from "../repositories/incidentsRepository.js";
 
 export async function createIncidentService(obj) {
-  const id = await createIncident(obj);
-  if (id) {
-    const logRepo = await createLogs({
-      action: "create incidant",
-      incident_id: id,
-      description: "new incidant",
-    });
+  const operator = await getOperatorById(obj.operator_id);
+  if (!operator || operator.length === 0) {
+    const err = new Error("Operator not found");
+    err.statusCode = 404;
+    throw err;
+  }
 
+  const incidentData = { ...obj, status: "OPEN" };
+  const id = await createIncident(incidentData);
+  if (id) {
+    await createLogs({
+      action: "INCIDENT_CREATED",
+      incident_id: id,
+      operator_id: obj.operator_id,
+      description: "New incident created",
+    });
     return id;
   }
   return false;
@@ -22,14 +30,14 @@ export async function createIncidentService(obj) {
 
 export async function updateIncidantService(incidantId, status) {
   const findIncidantById = await getIncidentById(incidantId);
-  if (!id) {
+  if (!findIncidantById) {
     return false;
   }
   const update = await updateIncidentById(incidantId, status);
   if (update) {
     const logRepo = await createLogs({
       action: "status changed",
-      incidantId,
+      incident_id: incidantId,
       description: `status changed to ${status.status}`,
     });
     return update;
