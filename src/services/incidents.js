@@ -5,6 +5,7 @@ import {
   updateIncidentById,
   getIncidantByStatus,
 } from "../repositories/incidentsRepository.js";
+import { getOperatorById } from "../repositories/operatorsRepository.js";
 
 export async function createIncidentService(obj) {
   const operator = await getOperatorById(obj.operator_id);
@@ -30,7 +31,7 @@ export async function createIncidentService(obj) {
 
 export async function updateIncidantService(incidantId, status) {
   const findIncidantById = await getIncidentById(incidantId);
-  if (!findIncidantById) {
+  if (!findIncidantById || findIncidantById.length === 0) {
     return false;
   }
   const update = await updateIncidentById(incidantId, status);
