@@ -1,4 +1,4 @@
-import pool from "./database/db.js";
+import pool from "../database/db.js";
 
 export async function getIncidentById(incidentId) {
   try {
@@ -40,13 +40,13 @@ export async function createIncident(obj) {
   const query = `INSERT INTO incidents (code_name, threat_level, status, operator_id) VALUES (?, ?, ?, ?)`;
   const { code_name, threat_level, status, operator_id } = obj;
   try {
-    const [rows] = await pool.execute(query, [
+    const [result] = await pool.execute(query, [
       code_name,
       threat_level,
       status,
       operator_id,
     ]);
-    return rows;
+    return result.insertId;
   } catch (error) {
     throw new Error(error);
   }
