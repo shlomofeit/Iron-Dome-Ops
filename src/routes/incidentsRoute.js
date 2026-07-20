@@ -1,6 +1,14 @@
 import express from "express";
-import { createOperator } from "./controllers/operators.js";
+import {
+  createIncident,
+  updateIncident,
+  getOpensIncident,
+} from "../controllers/incidents.js";
 
 const router = express.Router();
 
-router.post("/", createOperator);
+router.post("/", createIncident);
+router.patch("/:id/status", updateIncident);
+router.get("/open", getOpensIncident);
+
+export default router;
