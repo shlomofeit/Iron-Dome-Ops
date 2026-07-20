@@ -28,7 +28,7 @@ export async function updateOperatorById(operatorId, obj) {
 
 export async function createOperator(obj) {
   const query = `INSERT INTO operators (name, soldier_rank) VALUES (?, ?)`;
-  const { name, soldier_rank } = obj;
+  const { name, rank } = obj;
   try {
     const [result] = await pool.execute(query, [name, rank]);
     return result.insertId;
