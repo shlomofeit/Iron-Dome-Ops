@@ -1,5 +1,5 @@
-import { createLogs } from "./repositories/logsRepository.js";
-import { createOperator } from "./repositories/operatorsRepository.js";
+import { createLogs } from "../repositories/logsRepository.js";
+import { createOperator } from "../repositories/operatorsRepository.js";
 
 export async function createOparetorService(obj) {
   const id = await createOperator(obj);
